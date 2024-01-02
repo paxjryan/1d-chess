@@ -1,0 +1,4 @@
+- have multiple selectable board setups
+- make knights face whichever direction is forward for them
+- style buttons and text
+- far in future: wrap-around ruleset (both players' pawns move clockwise, and board wraps around both edges)

@@ -1,0 +1,172 @@
+<!doctype html>
+<html>
+<head>
+    <title>1D chess</title>
+    <meta name="description" content="Our first page">
+    <meta name="keywords" content="html tutorial template">
+    <link rel="stylesheet" type="text/css" href="indexStyle.css" />
+    <script type="text/javascript" src="script.js"></script>
+</head>
+<body>
+    <audio id="moveAudio">
+        <source src="audio/move-self.mp3" type="audio/mp3">
+    </audio>
+    <audio id="captureAudio">
+        <source src="audio/capture.mp3" type="audio/mp3">
+    </audio>
+    <audio id="resetAudio">
+        <source src="audio/notify.mp3" type="audio/mp3">
+    </audio>
+
+    <!--  For modal window, taken from w3schools tutorial at https://www.w3schools.com/howto/howto_css_modals.asp -->
+
+    <button id="rulesBtn">Open rules</button>
+
+    <!-- The Modal -->
+    <div id="modalWin" class="modal">
+        <!-- Modal content -->
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h1>1D CHESS RULES</h1>
+
+            <h3>Board and setup</h3>
+            <p>The board is a straight line with 24 consecutive squares alternating light and dark</p>
+            <p>Piece set-up from left to right: (white) RQBKNpNpp - - - - - - ppNpNKBQR (black)</p>
+            
+            <h3>Piece movement</h3>
+            <p>Pawns:</p>
+            <ul>
+                <li>can move 1 square</li>
+                <li>can move up to 2 squares for their first move</li>
+                <li>capture directly in front of them</li>
+            </ul>
+            <p>Knights:</p>
+            <ul>
+                <li>can move 2 squares (with optional jump)</li>
+                <li>can move 3 squares (with required jump)</li>
+            </ul>
+            <p>Bishops:</p>
+            <ul>
+                <li>can move to any square <i>of their color</i> (but cannot jump over pieces on that color)</li>
+            </ul>
+            <p>Rooks:</p>
+            <ul>
+                <li>can move to any square (but cannot jump)</li>
+            </ul>
+            <p>Queens:</p>
+            <ul>
+                <li>can move 3 squares (with optional jump)</li>
+                <li>can trade places with same-color knight, bishop, or rook</li>
+            </ul>
+            <p>Kings:</p>
+            <ul>
+                <li>can move 1 square</li>
+                <li>can move 2 squares (with required jump)</li>
+            </ul>
+
+            <h3>Special movement</h3>
+            <p>Castling:</p>
+            <ul>
+                <li>once per game</li>
+                <li>occurs between king and same-color rook with no piece in between</li>
+                <li>neither piece can have already moved; the king cannot be in check; the king cannot castle into check</li>
+                <li>king moves two squares toward the rook, then rook moves just far enough to jump over king</li>
+            </ul>
+            <p>Promotion:</p>
+            <ul>
+                <li>promotion squares: square 10 (black), square 15 (white)</li>
+                <li>if a pawn reaches its color promotion square, it can promote into any piece except King</li>
+            </ul>
+            <p>En passant is not allowed</p>
+            <p>Stalemate is rare but possible</p>
+        </div>
+    </div>
+
+    <!-- end w3schools tutorial content -->
+
+    <div id="colorTurnDiv">
+        <p id="colorTurnText">[color]'s turn</p>
+    </div>
+
+    <div id="promotionDiv">
+        <p id="promotionText" style="display: none">promote:</p>
+        <div id="whitePromotionImgs" style="display: none">
+            <img src="graphics/white/wN.svg" alt="whiteKnightPromotion" class="promotionImg" onclick="doPromotion('N')">            
+            <img src="graphics/white/wB.svg" alt="whiteBishopPromotion" class="promotionImg" onclick="doPromotion('B')">
+            <img src="graphics/white/wR.svg" alt="whiteKnightPromotion" class="promotionImg" onclick="doPromotion('R')">
+            <img src="graphics/white/wQ.svg" alt="whiteQueenPromotion" class="promotionImg" onclick="doPromotion('Q')">
+        </div>
+        <div id="blackPromotionImgs" style="display: none">
+            <img src="graphics/black/bN.svg" alt="blackKnightPromotion" class="promotionImg" onclick="doPromotion('N')">            
+            <img src="graphics/black/bB.svg" alt="blackBishopPromotion" class="promotionImg" onclick="doPromotion('B')">
+            <img src="graphics/black/bR.svg" alt="blackKnightPromotion" class="promotionImg" onclick="doPromotion('R')">
+            <img src="graphics/black/bQ.svg" alt="blackQueenPromotion" class="promotionImg" onclick="doPromotion('Q')">
+        </div>
+    </div>
+
+    <div id="boardDiv">
+        <table id="board">
+            <tr>
+                <td id="sq1" onclick="selectSquare(this.id)"></td> <td id="sq2" onclick="selectSquare(this.id)"></td> 
+                <td id="sq3" onclick="selectSquare(this.id)"></td> <td id="sq4" onclick="selectSquare(this.id)"></td> 
+                <td id="sq5" onclick="selectSquare(this.id)"></td> <td id="sq6" onclick="selectSquare(this.id)"></td> 
+                <td id="sq7" onclick="selectSquare(this.id)"></td> <td id="sq8" onclick="selectSquare(this.id)"></td> 
+                <td id="sq9" onclick="selectSquare(this.id)"></td> <td id="sq10" onclick="selectSquare(this.id)"></td> 
+                <td id="sq11" onclick="selectSquare(this.id)"></td> <td id="sq12" onclick="selectSquare(this.id)"></td> 
+            </tr>
+            <tr id="boardTopRow">
+                <td></td> <td></td> <td></td> <td></td> <td></td> <td></td> 
+                <td></td> <td></td> <td></td> <td class="stripes"></td> <td></td> <td></td>
+            </tr>
+            <!-- spacer row --> <tr id="boardSpacerRow"></tr>
+            <tr>
+                <td id="sq24" onclick="selectSquare(this.id)"></td> <td id="sq23" onclick="selectSquare(this.id)"></td> 
+                <td id="sq22" onclick="selectSquare(this.id)"></td> <td id="sq21" onclick="selectSquare(this.id)"></td> 
+                <td id="sq20" onclick="selectSquare(this.id)"></td> <td id="sq19" onclick="selectSquare(this.id)"></td> 
+                <td id="sq18" onclick="selectSquare(this.id)"></td> <td id="sq17" onclick="selectSquare(this.id)"></td> 
+                <td id="sq16" onclick="selectSquare(this.id)"></td> <td id="sq15" onclick="selectSquare(this.id)"></td> 
+                <td id="sq14" onclick="selectSquare(this.id)"></td> <td id="sq13" onclick="selectSquare(this.id)"></td>
+            </tr>
+            <tr id="boardBottomRow">
+                <td></td> <td></td> <td></td> <td ></td> <td></td> <td></td> 
+                <td></td> <td></td> <td></td> <td class="stripes"></td> <td></td> <td></td>
+            </tr>
+        </table>
+    </div>
+
+    <div id="resetDiv">
+        <button id="reset" onclick="initializeGame()">reset</button>
+    </div>
+
+    <!--  For modal window, taken from w3schools tutorial at https://www.w3schools.com/howto/howto_css_modals.asp -->
+    <script>
+        // Get the modal
+        var modal = document.getElementById("modalWin");
+        
+        // Get the button that opens the modal
+        var btn = document.getElementById("rulesBtn");
+        
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        
+        // When the user clicks the button, open the modal 
+        btn.onclick = function() {
+          modal.style.display = "block";
+        }
+        
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+          modal.style.display = "none";
+        }
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+          if (event.target == modal) {
+            modal.style.display = "none";
+          }
+        }
+    </script>
+
+    <!-- end w3schools content -->
+</body>
+</html>

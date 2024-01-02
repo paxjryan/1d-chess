@@ -1,0 +1,15 @@
+Graphics:
+
+https://github.com/lichess-org/lila/tree/master/public/piece/alpha
+
+to flip orientation of svgs:
+- https://www.svgviewer.dev/
+- add transform="scale(-1,1)" to svg tag
+
+
+background: https://unsplash.com/photos/brown-chess-pieces-on-brown-wooden-chess-board-7VGzV09YnvA
+
+
+Sounds:
+
+https://www.chess.com/forum/view/general/chessboard-sound-files

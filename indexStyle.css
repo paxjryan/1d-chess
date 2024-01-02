@@ -1,0 +1,146 @@
+html, body {
+    height: 100%;
+    margin: 0px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    /* background-color: green; */
+    background-image: url("graphics/background.jpg");
+    background-size: cover;
+}
+
+p {
+    margin: 0px;
+}
+
+table {
+    width: 100%;
+    table-layout: fixed;
+    text-align: center;
+}
+
+#colorTurnDiv {
+    text-align: center;
+    height: 20%;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+#promotionDiv {
+    margin-left: auto;
+    margin-right: auto;
+    height: 20%;
+    width: 15%;
+}
+
+#boardDiv {
+    height: 40%;
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#resetDiv {
+    height: 20%;
+}
+
+#colorTurnText {
+    padding: 50px 0px;
+}
+
+#whitePromotionImgs, #blackPromotionImgs {
+    width: 100%;
+}
+
+#promotionText { 
+    text-align: center;
+    padding: 0px 0px 20px 0px;
+}
+
+.promotionImg {
+    width: 23%;
+}
+
+#boardSpacerRow {
+    height: 60px;
+}
+
+#boardTopRow, #boardBottomRow {
+    height: 10px;
+}
+
+#boardTopRow td:nth-child(odd), #boardBottomRow td:nth-child(even) { 
+    background-color: white;
+}
+
+#boardTopRow td:nth-child(even), #boardBottomRow td:nth-child(odd) {
+    background-color: grey;
+}
+
+.stripes {
+    background-image: linear-gradient(45deg, #000 25%, transparent 25%, transparent 50%, #000 50%, #000 75%, transparent 75%);
+}
+
+#reset {
+    position: relative;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+
+
+
+/* For modal window, taken from w3schools tutorial at https://www.w3schools.com/howto/howto_css_modals.asp */
+
+#rulesBtn {
+    width: 100px;
+    float: right;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 50px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: scroll; /* Enable scroll if needed */
+    /* overflow-x: auto; */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    background-color: black;
+    margin: auto;
+    padding: 50px;
+    width: 70%;
+    height: 65%;
+    overflow: scroll;
+    overflow-x: auto;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+  }
